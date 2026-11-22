@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grace's Blender Mega Project - The Stable</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Karla:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f5efe3;
+    --paper-deep:#ece3cf;
+    --ink:#2b2118;
+    --ink-soft:#5d4c3a;
+    --saddle:#8a4f24;
+    --saddle-deep:#6b3a17;
+    --green:#41603c;
+    --gold:#c99a2e;
+    --line:#d8c9ab;
+    --card:#fffdf7;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Karla',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.55;
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(201,154,46,.07), transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(65,96,60,.07), transparent 40%);
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:0 20px}
+  header{
+    padding:64px 0 40px;
+    border-bottom:3px solid var(--ink);
+    position:relative;
+  }
+  .kicker{
+    font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+    font-size:.72rem;color:var(--saddle);margin-bottom:14px;
+  }
+  h1{
+    font-family:'Fraunces',serif;font-weight:900;
+    font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.04;
+  }
+  h1 em{font-style:italic;font-weight:600;color:var(--saddle)}
+  .deadline{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-top:20px;padding:8px 16px;
+    background:var(--ink);color:var(--paper);
+    border-radius:999px;font-size:.85rem;font-weight:600;
+  }
+  .deadline .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .intro{padding:28px 0 8px;font-size:1.05rem;color:var(--ink-soft);max-width:640px}
+  .intro strong{color:var(--ink)}
+  section{padding:36px 0}
+  h2{
+    font-family:'Fraunces',serif;font-weight:600;font-size:1.6rem;
+    display:flex;align-items:baseline;gap:12px;margin-bottom:6px;
+  }
+  h2 .yr{font-weight:900;font-size:2rem;color:var(--saddle)}
+  .yr-outcome{font-style:italic;color:var(--ink-soft);margin-bottom:22px;font-size:.95rem}
+  .guardrails{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;padding:10px 0 20px}
+  .guard{
+    background:var(--card);border:1.5px solid var(--line);border-radius:14px;
+    padding:18px;box-shadow:0 2px 0 var(--line);
+  }
+  .guard .n{
+    font-family:'Fraunces',serif;font-weight:900;color:var(--gold);
+    font-size:1.1rem;display:block;margin-bottom:6px;
+  }
+  .guard b{display:block;margin-bottom:4px}
+  .guard span{font-size:.88rem;color:var(--ink-soft)}
+  .year{border-top:3px solid var(--ink)}
+  .phase{
+    display:inline-block;margin:4px 0 4px;padding:3px 12px;border-radius:999px;
+    font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#fff;
+  }
+  .phase.found{background:var(--green)}
+  .phase.build{background:var(--saddle)}
+  .phase.craft{background:#7a4a6d}
+  .phase.finish{background:var(--ink)}
+  table{width:100%;border-collapse:collapse;background:var(--card);
+    border:1.5px solid var(--line);border-radius:14px;overflow:hidden;
+    box-shadow:0 3px 0 var(--line)}
+  thead th{
+    text-align:left;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--saddle);background:var(--paper-deep);padding:10px 14px;
+  }
+  tbody td{padding:13px 14px;border-top:1px solid var(--line);vertical-align:top;font-size:.95rem}
+  td.when{white-space:nowrap;font-weight:800;width:1%;color:var(--saddle-deep)}
+  td.when small{display:block;font-weight:400;color:var(--ink-soft);font-size:.75rem}
+  td.focus b{display:block}
+  td.focus{color:var(--ink-soft)}
+  td.art{font-size:.88rem}
+  .chip{
+    display:inline-block;background:rgba(201,154,46,.14);border:1px solid rgba(201,154,46,.5);
+    color:var(--saddle-deep);border-radius:8px;padding:3px 9px;font-weight:600;font-size:.83rem;
+  }
+  tr.summer td{background:linear-gradient(90deg,rgba(201,154,46,.10),transparent)}
+  tr.summer .chip{background:var(--gold);color:#fff;border-color:var(--saddle-deep)}
+  .shelf{counter-reset:shelf}
+  .shelf li{
+    list-style:none;position:relative;padding:14px 0 14px 52px;
+    border-bottom:1px dashed var(--line);
+  }
+  .shelf li:before{
+    counter-increment:shelf;content:counter(shelf);
+    position:absolute;left:0;top:12px;width:34px;height:34px;
+    border-radius:50%;background:var(--saddle);color:var(--paper);
+    font-family:'Fraunces',serif;font-weight:900;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .shelf b{display:block}
+  .shelf span{font-size:.88rem;color:var(--ink-soft)}
+  .insurance{
+    margin-top:18px;padding:16px 18px;border-left:4px solid var(--gold);
+    background:var(--card);font-style:italic;color:var(--ink-soft);font-size:.92rem;border-radius:0 12px 12px 0;
+  }
+  footer{padding:30px 0 60px;color:var(--ink-soft);font-size:.8rem;text-align:center}
+  @media(max-width:560px){
+    thead{display:none}
+    tbody td,tbody tr{display:block;width:auto}
+    tbody tr{border-bottom:6px solid var(--paper);padding:6px 0}
+    td.when{width:auto;padding-bottom:2px}
+    td.focus{padding:2px 0}
+    td.art{padding-top:6px}
+  }
+  @media print{
+    body{background:#fff}
+    .deadline{color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="kicker">Grace's Blender Mega Project</div>
+    <h1>The Stable <em>- an animated short</em></h1>
+    <div class="deadline"><span class="dot"></span> Finished &amp; premiered by July 2030</div>
+  </header>
+
+  <p class="intro">
+    A polished, <strong>wordless animated short (60-90 seconds)</strong>, set in a modern stable Grace designs,
+    starring stylised horses. Made in <strong>Blender</strong>; edited, graded and finished in
+    <strong>DaVinci Resolve</strong>. Complete before the family leaves for itineration in July 2030 -
+    ready for UCAS (autumn 2031) and every portfolio moment in between.
+  </p>
+
+  <section>
+    <h2>Guardrails</h2>
+    <div class="guardrails">
+      <div class="guard"><span class="n">1</span><b>Stylised horses</b><span>Spirit, not National Geographic. Realism can come later, during A-levels.</span></div>
+      <div class="guard"><span class="n">2</span><b>No dialogue</b><span>Visual storytelling only - and everyone can watch it, in any language.</span></div>
+      <div class="guard"><span class="n">3</span><b>90 seconds max</b><span>Finished and polished beats long and rough. Every time.</span></div>
+      <div class="guard"><span class="n">4</span><b>Ship something</b><span>Every stage ends with a finished artifact, not "progress".</span></div>
+    </div>
+  </section>
+
+  <section class="year" style="border-top:none">
+    <h2><span class="yr">2027</span> Foundations</h2>
+    <p class="yr-outcome">Learn the tool, finish small things. Comfortable in Blender by Christmas; 5+ finished renders. No horses yet - form first.</p>
+    <table>
+      <thead><tr><th>When</th><th>Focus</th><th>Finishes with</th></tr></thead>
+      <tbody>
+        <tr><td class="when">Jan-Feb<small>Spring 1</small></td><td class="focus"><b>Blender bootcamp</b>Interface, navigation, first tutorial project (the classic donut or similar)</td><td class="art"><span class="chip">First rendered still</span></td></tr>
+        <tr><td class="when">Feb-Mar<small>Spring 2</small></td><td class="focus"><b>Hard-surface modelling</b>Simple stable-adjacent objects: hay bale, buckets, fence, feed trough</td><td class="art"><span class="chip">Still of 3+ modelled objects</span></td></tr>
+        <tr><td class="when">Apr-May<small>Summer 1</small></td><td class="focus"><b>Materials &amp; lighting basics</b>Build one small scene and make it look intentional</td><td class="art"><span class="chip">One lit, rendered scene</span></td></tr>
+        <tr><td class="when">May-Jun<small>Summer 2</small></td><td class="focus"><b>Sculpting intro</b>Spectre in tablet mode, pen in hand - push digital clay around</td><td class="art"><span class="chip">Sculpt of a simple animal form</span></td></tr>
+        <tr class="summer"><td class="when">Jul-Aug<small>Bonus stage</small></td><td class="focus"><b>"Dream Stable" design phase</b>Mood boards, reference photos of modern stables, sketch floor plans on paper</td><td class="art"><span class="chip">Signed-off stable design + mood board</span></td></tr>
+        <tr><td class="when">Sep-Oct<small>Autumn 1</small></td><td class="focus"><b>Architectural modelling basics</b>Walls, doors, windows, roofs</td><td class="art"><span class="chip">Stable door + wall section</span></td></tr>
+        <tr><td class="when">Oct-Dec<small>Autumn 2</small></td><td class="focus"><b>Interior lighting &amp; mood</b>Model a small stable interior, light it atmospherically</td><td class="art"><span class="chip">Moody interior render - portfolio piece 1</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="year">
+    <h2><span class="yr">2028</span> The Stable and the Horse</h2>
+    <p class="yr-outcome">The stable exists, the first horse exists. GCSEs start in September - autumn stages stay deliberately light.</p>
+    <table>
+      <thead><tr><th>When</th><th>Focus</th><th>Finishes with</th></tr></thead>
+      <tbody>
+        <tr><td class="when">Jan-Feb<small>Spring 1</small></td><td class="focus"><b>Stable build, part 1</b>Blockout of the full building from the summer design</td><td class="art"><span class="chip">Complete stable blockout</span></td></tr>
+        <tr><td class="when">Feb-Mar<small>Spring 2</small></td><td class="focus"><b>Stable build, part 2</b>Detail modelling, materials, camera angles</td><td class="art"><span class="chip">Styled stable exterior</span></td></tr>
+        <tr><td class="when">Apr-May<small>Summer 1</small></td><td class="focus"><b>Horse anatomy for artists</b>Proportions, silhouette; build a stylised horse base mesh</td><td class="art"><span class="chip">First stylised horse model</span></td></tr>
+        <tr><td class="when">May-Jun<small>Summer 2</small></td><td class="focus"><b>Horse refinement</b>Shape, simple mane and tail, paint and pattern</td><td class="art"><span class="chip">Horse turntable - portfolio piece 2</span></td></tr>
+        <tr class="summer"><td class="when">Jul-Aug<small>Bonus stage</small></td><td class="focus"><b>PRODUCTION PIECE 1: the flythrough</b>30-second stable flythrough + build out the yard. First DaVinci Resolve use</td><td class="art"><span class="chip">Finished flythrough - portfolio piece 3</span></td></tr>
+        <tr><td class="when">Sep-Oct<small>Autumn 1</small></td><td class="focus"><b>Rigging basics</b>Learn how rigs work; use a ready-made quadruped rig</td><td class="art"><span class="chip">First wobbly walk cycle</span></td></tr>
+        <tr><td class="when">Oct-Dec<small>Autumn 2</small></td><td class="focus"><b>Walk cycle polish</b>Weight, timing, personality</td><td class="art"><span class="chip">Polished 10s walk cycle</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="year">
+    <h2><span class="yr">2029</span> Animation and Story</h2>
+    <p class="yr-outcome">She can animate a horse, and the film now has a story. Lighter in autumn (mock season) - story work is paper-based.</p>
+    <table>
+      <thead><tr><th>When</th><th>Focus</th><th>Finishes with</th></tr></thead>
+      <tbody>
+        <tr><td class="when">Jan-Feb<small>Spring 1</small></td><td class="focus"><b>Quadruped locomotion</b>Study real horse footage frame by frame; animate a trot</td><td class="art"><span class="chip">Trot cycle render</span></td></tr>
+        <tr><td class="when">Feb-Mar<small>Spring 2</small></td><td class="focus"><b>THE BOSS FIGHT: the gallop</b>Take all the time this needs - it gets a full half-term</td><td class="art"><span class="chip">Gallop cycle - portfolio piece 4</span></td></tr>
+        <tr><td class="when">Apr-May<small>Summer 1</small></td><td class="focus"><b>Animation acting</b>Shots, cameras, making a viewer feel something</td><td class="art"><span class="chip">One character "acting" shot</span></td></tr>
+        <tr><td class="when">May-Jun<small>Summer 2</small></td><td class="focus"><b>Story phase</b>Write the short (one page max), storyboard on paper, cut an animatic in Resolve</td><td class="art"><span class="chip">Locked storyboard + animatic</span></td></tr>
+        <tr class="summer"><td class="when">Jul-Aug<small>Bonus stage</small></td><td class="focus"><b>PRODUCTION PIECE 2: blocking the film</b>Full stable scene, horse in place, rough animation of every shot</td><td class="art"><span class="chip">Complete blocked cut</span></td></tr>
+        <tr><td class="when">Sep-Oct<small>Autumn 1</small></td><td class="focus"><b>Animate: first half</b>Polish the first-half shots</td><td class="art"><span class="chip">First half animated</span></td></tr>
+        <tr><td class="when">Oct-Dec<small>Autumn 2</small></td><td class="focus"><b>Animate: second half</b>Plus temporary sound</td><td class="art"><span class="chip">Fully animated cut with temp audio</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="year">
+    <h2><span class="yr">2030</span> Finish Line</h2>
+    <p class="yr-outcome">January to April. Everything is finished before study leave - the film exists in April, GCSEs get May and June.</p>
+    <table>
+      <thead><tr><th>When</th><th>Focus</th><th>Finishes with</th></tr></thead>
+      <tbody>
+        <tr><td class="when">Jan-Feb</td><td class="focus"><b>Animation polish</b>Secondary motion: mane, tail, dust, small life</td><td class="art"><span class="chip">Final animation locked</span></td></tr>
+        <tr><td class="when">Feb-Mar</td><td class="focus"><b>Lighting &amp; rendering</b>All shots, scene by scene - started early, because rendering takes real time on Iris Xe</td><td class="art"><span class="chip">All shots rendered</span></td></tr>
+        <tr><td class="when">Mar-Apr</td><td class="focus"><b>The Easter push</b>Compositing and titles in Resolve/Fusion; sound and music from free libraries; final edit and colour grade</td><td class="art"><span class="chip">THE FINISHED FILM</span></td></tr>
+        <tr><td class="when">Apr-May</td><td class="focus"><b>Quiet buffer &amp; archive</b>Back everything up, export masters, write the "making of" notes</td><td class="art"><span class="chip">Finished film + project archive</span></td></tr>
+        <tr><td class="when">May-Jun</td><td class="focus"><b>GCSE exams</b>Blender sleeps</td><td class="art"><span class="chip">She sat her GCSEs</span></td></tr>
+        <tr class="summer"><td class="when">Jul</td><td class="focus"><b>PREMIERE</b>Shown at a goodbye gathering before itineration; uploaded as the portfolio centrepiece</td><td class="art"><span class="chip">A finished, public short film</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="year" style="border-top:3px solid var(--ink)">
+    <h2>The Portfolio Shelf</h2>
+    <p class="yr-outcome">Five standalone pieces, landing roughly yearly. The film is the centrepiece; the shelf is the insurance.</p>
+    <ul class="shelf">
+      <li><b>Moody stable interior render</b><span>December 2027</span></li>
+      <li><b>Horse model turntable</b><span>June 2028</span></li>
+      <li><b>Stable flythrough video</b><span>August 2028</span></li>
+      <li><b>Gallop cycle video</b><span>March 2029</span></li>
+      <li><b>The short film itself</b><span>July 2030</span></li>
+    </ul>
+    <p class="insurance">Every item stands alone. If life happens and the film slips, the shelf still tells the whole story.</p>
+  </section>
+
+  <footer>Grace's Blender Mega Project roadmap - planned November 2026, with Dad &amp; Littlebird.</footer>
+</div>
+</body>
+</html>
