@@ -121,6 +121,45 @@
     background:var(--card);font-style:italic;color:var(--ink-soft);font-size:.92rem;border-radius:0 12px 12px 0;
   }
   footer{padding:30px 0 60px;color:var(--ink-soft);font-size:.8rem;text-align:center}
+  .expandable{cursor:pointer}
+  .expandable:hover td{background:rgba(201,154,46,.06)}
+  .chev{display:inline-block;transition:transform .25s;margin-right:6px;color:var(--saddle);font-size:.8rem}
+  tr.open .chev{transform:rotate(90deg)}
+  .tap{display:block;font-size:.68rem;color:var(--saddle);letter-spacing:.1em;text-transform:uppercase;font-weight:800;margin-top:5px}
+  .detail-row{display:none}
+  .detail-row.show{display:table-row}
+  .detail-row > td{padding:0;background:var(--paper-deep)}
+  .panel{padding:20px 22px;animation:slide .3s ease}
+  @keyframes slide{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+  .panel .goal{font-style:italic;color:var(--saddle-deep);margin-bottom:16px;font-size:.92rem}
+  .steps{list-style:none;counter-reset:step}
+  .steps li{counter-increment:step;position:relative;padding:12px 0 12px 44px;border-bottom:1px dashed var(--line)}
+  .steps li:last-child{border-bottom:none}
+  .steps li:before{
+    content:counter(step);position:absolute;left:0;top:12px;width:28px;height:28px;
+    border-radius:50%;border:2px solid var(--saddle);color:var(--saddle);
+    font-family:'Fraunces',serif;font-weight:900;font-size:.85rem;
+    display:flex;align-items:center;justify-content:center;background:var(--card);
+  }
+  .steps li.done:before{content:'\2713';background:var(--green);border-color:var(--green);color:#fff}
+  .steps b{display:block}
+  .steps p{font-size:.9rem;color:var(--ink-soft);margin:2px 0 6px}
+  .steps label.tickwrap{display:flex;align-items:center;gap:8px;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--green);cursor:pointer;user-select:none}
+  .steps input[type=checkbox]{accent-color:var(--green);width:15px;height:15px;cursor:pointer}
+  .links{margin-top:6px;display:flex;flex-wrap:wrap;gap:6px}
+  .links a{
+    display:inline-block;font-size:.8rem;font-weight:600;color:var(--saddle-deep);
+    background:rgba(138,79,36,.09);border:1px solid rgba(138,79,36,.35);
+    border-radius:8px;padding:3px 10px;text-decoration:none;
+  }
+  .links a:hover{background:var(--saddle);color:#fff}
+  .dadnotes{
+    margin-top:16px;padding:14px 16px;border-left:4px solid var(--green);
+    background:rgba(65,96,60,.07);border-radius:0 12px 12px 0;font-size:.88rem;
+  }
+  .dadnotes b{display:block;margin-bottom:6px;color:var(--green);letter-spacing:.08em;text-transform:uppercase;font-size:.72rem}
+  .dadnotes ul{margin-left:18px;color:var(--ink-soft)}
+  .dadnotes li{margin-bottom:4px}
   @media(max-width:560px){
     thead{display:none}
     tbody td,tbody tr{display:block;width:auto}
@@ -167,7 +206,35 @@
     <table>
       <thead><tr><th>When</th><th>Focus</th><th>Finishes with</th></tr></thead>
       <tbody>
-        <tr><td class="when">Jan-Feb<small>Spring 1</small></td><td class="focus"><b>Blender bootcamp</b>Interface, navigation, first tutorial project (the classic donut or similar)</td><td class="art"><span class="chip">First rendered still</span></td></tr>
+        <tr class="expandable" data-target="d1"><td class="when">Jan-Feb<small>Spring 1</small></td><td class="focus"><span class="chev">&#9656;</span><b>Blender bootcamp</b>Interface, navigation, first tutorial project (the classic donut or similar)<span class="tap">click to open the full session plan</span></td><td class="art"><span class="chip">First rendered still</span></td></tr>
+        <tr class="detail-row" id="d1"><td colspan="3"><div class="panel">
+          <p class="goal">Goal: by mid-February, Grace can find her way around Blender unaided and has her first finished render on the shelf. Rhythm: two or three 45-minute sessions a week - she drives, you sit beside her.</p>
+          <ol class="steps">
+            <li><b>Install &amp; set up (one evening)</b><p>Download the free LTS version from blender.org. Then set up the project folder the same evening: <em>The-Stable/2027-01-bootcamp/</em> with subfolders <em>renders/</em>, <em>references/</em>, <em>wip/</em>. Naming habits on day one save heartache in 2030.</p>
+              <div class="links"><a href="https://www.blender.org/download/" target="_blank">blender.org/download</a><a href="https://docs.blender.org/manual/en/latest/" target="_blank">Official manual (bookmark this)</a></div>
+              <label class="tickwrap"><input type="checkbox" class="tick" data-key="s1-step1"> done</label></li>
+            <li><b>Learn the room (week 1)</b><p>Grant Abbitt's <em>Blender 5 Complete Beginners Guide</em>, Part 1: The Interface. Watch with Blender open, pausing to copy every move. Thirty minutes hands-on beats three hours watching.</p>
+              <div class="links"><a href="https://www.youtube.com/watch?v=kVcY7K-JA1Y" target="_blank">Grant Abbitt: Blender 5 Beginners Guide Pt 1</a></div>
+              <label class="tickwrap"><input type="checkbox" class="tick" data-key="s1-step2"> done</label></li>
+            <li><b>Mouse gymnastics (weeks 1-2)</b><p>Viewport navigation until it is boring: orbit, pan, zoom without thinking. Then the ten keyboard moves that matter: G grab, R rotate, S scale, Tab edit mode, X delete, Shift+A add, F3 search, numpad 1/3/7 for views, Z wireframe, Ctrl+Z undo (the most important one).</p>
+              <label class="tickwrap"><input type="checkbox" class="tick" data-key="s1-step3"> done</label></li>
+            <li><b>The donut (weeks 2-5)</b><p>The rite of passage: Blender Guru's Donut Tutorial, 2026 edition, made for Blender 5. Do parts 1-4 properly; frustration is part of the curriculum. Do not chase the whole series this half-term - level 1-2 skills are the goal.</p>
+              <div class="links"><a href="https://www.youtube.com/watch?v=-tbSCMbJA6o" target="_blank">Donut Part 1 (2026)</a><a href="https://www.youtube.com/watch?v=z-Xl9tGqH14" target="_blank">Whole donut in one video</a></div>
+              <label class="tickwrap"><input type="checkbox" class="tick" data-key="s1-step4"> done</label></li>
+            <li><b>Fly solo (week 6)</b><p>No tutorial allowed: model something simple from the stable - a hay bale, a bucket, a fence post. Ugly is completely fine. This is the real milestone: proof the skills transferred from the video into her hands.</p>
+              <label class="tickwrap"><input type="checkbox" class="tick" data-key="s1-step5"> done</label></li>
+            <li><b>Ship it (final week)</b><p>Light the scene with a Sun lamp, press F12, save the render to <em>renders/</em>. That is portfolio artifact zero. Screenshot the wireframe and clay versions too - the "making of" shots are portfolio gold later.</p>
+              <label class="tickwrap"><input type="checkbox" class="tick" data-key="s1-step6"> done</label></li>
+          </ol>
+          <div class="dadnotes"><b>Dad notes</b>
+            <ul>
+              <li>Stop while it is still fun. Ending on a win brings her back tomorrow.</li>
+              <li>Resist fixing it for her. "What do you think that button does?" is the whole pedagogy.</li>
+              <li>If the donut gets boring, swap in Grant Abbitt's series - same skills, different flavour. Consistency beats loyalty.</li>
+              <li>Keep everything, including failures. The ugly early renders are the before-photos of the whole journey.</li>
+            </ul>
+          </div>
+        </div></td></tr>
         <tr><td class="when">Feb-Mar<small>Spring 2</small></td><td class="focus"><b>Hard-surface modelling</b>Simple stable-adjacent objects: hay bale, buckets, fence, feed trough</td><td class="art"><span class="chip">Still of 3+ modelled objects</span></td></tr>
         <tr><td class="when">Apr-May<small>Summer 1</small></td><td class="focus"><b>Materials &amp; lighting basics</b>Build one small scene and make it look intentional</td><td class="art"><span class="chip">One lit, rendered scene</span></td></tr>
         <tr><td class="when">May-Jun<small>Summer 2</small></td><td class="focus"><b>Sculpting intro</b>Spectre in tablet mode, pen in hand - push digital clay around</td><td class="art"><span class="chip">Sculpt of a simple animal form</span></td></tr>
@@ -243,5 +310,24 @@
 
   <footer>Grace's Blender Mega Project roadmap - planned November 2026, with Dad &amp; Littlebird.</footer>
 </div>
+<script>
+function toggleDetail(e){
+  if(e.target.closest('a')||e.target.closest('label')||e.target.type==='checkbox') return;
+  var row=e.currentTarget, d=document.getElementById(row.dataset.target);
+  var open=row.classList.toggle('open');
+  d.classList.toggle('show',open);
+}
+document.querySelectorAll('.expandable').forEach(function(r){
+  r.addEventListener('click',toggleDetail);
+});
+document.querySelectorAll('.tick').forEach(function(c){
+  var k='stable-roadmap-'+c.dataset.key;
+  if(localStorage.getItem(k)==='1'){c.checked=true;c.closest('li').classList.add('done');}
+  c.addEventListener('change',function(){
+    localStorage.setItem(k,c.checked?'1':'0');
+    c.closest('li').classList.toggle('done',c.checked);
+  });
+});
+</script>
 </body>
 </html>
